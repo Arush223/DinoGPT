@@ -36,7 +36,7 @@ const Page = () => {
   };
 
   return (
-    <section className="w-full h-full relative">
+    <section className="w-full h-full relative " style = {{background: 'black'}}>
       <section className="w-full h-screen relative flex flex-col justify-center items-center" style={{ transform: `translateY(-${scrollPosition * 0.5}px)` }}>
         <h1 className="text-6xl font-bold absolute left-1/2 transform -translate-x-1/2 fade-in-text" style={{ background: 'radial-gradient(circle, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #8b00ff)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>DinoGPT</h1>
       </section>
@@ -56,8 +56,7 @@ const Page = () => {
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
           <div className="relative flex flex-col">
             <div className="relative">
-              <input 
-                type="text" 
+              <textarea 
                 className="p-2 pr-20 border border-gray-300 rounded-md text-black mb-2 w-full max-w-md focus:outline-none focus:ring focus:border-blue-300" 
                 value={inputText} 
                 onChange={handleInputChange} 
@@ -67,7 +66,7 @@ const Page = () => {
                 <Image src="/arrow.png" alt="Send" width={70} height={24} />
               </button>
             </div>
-            <input 
+            <textarea 
               type="text" 
               className="p-2 border border-gray-300 rounded-md text-black mb-2 w-full max-w-md focus:outline-none focus:ring focus:border-blue-300" 
               value={outputText} 

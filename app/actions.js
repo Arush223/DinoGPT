@@ -1,4 +1,4 @@
-'use server'
+"use server";
 
 import "dotenv/config.js";
 import { PromptTemplate } from "@langchain/core/prompts";
@@ -14,29 +14,31 @@ import {
 const openAIApiKey = process.env.OPENAI_API_KEY;
 
 const llm = new ChatOpenAI({ openAIApiKey });
+const finetuned = new ChatOpenAI({ openAIApiKey, modelName: 'ft:gpt-3.5-turbo-0125:personal::9BDuUTGb'})
 
-const standaloneQuestionTemplate = `given a question, convert it into a standalone question.
+export async function getResponse(prompt) {
+  const standaloneQuestionTemplate = `given a question, convert it into a standalone question.
 question: {question}
 standalone question:`;
 
-const standaloneQuestionPrompt = PromptTemplate.fromTemplate(
-  standaloneQuestionTemplate
-);
+  const standaloneQuestionPrompt = PromptTemplate.fromTemplate(
+    standaloneQuestionTemplate
+  );
 
-const standaloneQuestionChain = RunnableSequence.from([
-  standaloneQuestionPrompt,
-  llm,
-  new StringOutputParser(),
-]);
+  const standaloneQuestionChain = RunnableSequence.from([
+    standaloneQuestionPrompt,
+    llm,
+    new StringOutputParser(),
+  ]);
 
-const retrieverChain = RunnableSequence.from([
-  (prevResult) => prevResult.standalone_question,
-  retriever,
-  combineDocuments,
-  new StringOutputParser(),
-]);
+  const retrieverChain = RunnableSequence.from([
+    (prevResult) => prevResult.standalone_question,
+    retriever,
+    combineDocuments,
+    new StringOutputParser(),
+  ]);
 
-const answerTemplate = `Use provided context if it is relevant.
+  const answerTemplate = `Use provided context if it is relevant.
 
 If the context is irrelevant, make a guess based on what you know.
 
@@ -50,27 +52,26 @@ context: {context}
 question: {question}
 answer: `;
 
-const answerPrompt = PromptTemplate.fromTemplate(answerTemplate);
+  const answerPrompt = PromptTemplate.fromTemplate(answerTemplate);
 
-const answerChain = RunnableSequence.from([
-  answerPrompt,
-  llm,
-  new StringOutputParser(),
-]);
+  const answerChain = RunnableSequence.from([
+    answerPrompt,
+    finetuned,
+    new StringOutputParser(),
+  ]);
 
-const chain = RunnableSequence.from([
-  {
-    standalone_question: standaloneQuestionChain,
-    original_input: new RunnablePassthrough(),
-  },
-  {
-    context: retrieverChain,
-    question: ({ original_input }) => original_input.question,
-  },
-  answerChain,
-]);
+  const chain = RunnableSequence.from([
+    {
+      standalone_question: standaloneQuestionChain,
+      original_input: new RunnablePassthrough(),
+    },
+    {
+      context: retrieverChain,
+      question: ({ original_input }) => original_input.question,
+    },
+    answerChain,
+  ]);
 
-export async function getResponse(prompt) {
   const response = await chain.invoke({
     question: prompt,
   });

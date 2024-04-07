@@ -5,6 +5,7 @@ import { OpenAIEmbeddings } from "@langchain/openai";
 import {SupabaseVectorStore} from "@langchain/community/vectorstores/supabase"
 
 try {
+  // Read text file
   const text = await readFile('supabase/info.txt','utf-8')
 
   const sbApiKey = process.env.SUPABASE_API_KEY
@@ -13,15 +14,18 @@ try {
 
   const client = createClient(sbUrl,sbApiKey)
 
+  // Split text
   const splitText = text.split('\n\n')
 
   let i = 0
 
+  // Create document objects
   const docs = splitText.map(text => ({
     pageContent: text,
     metadata: {id: i += 1}
   }))
 
+  // Upload documents and vector embeddings to Supabase
   await SupabaseVectorStore.fromDocuments(
     docs,
     new OpenAIEmbeddings({openAIApiKey}),

@@ -16,6 +16,7 @@ const vectorStore = new SupabaseVectorStore(embeddings, {
     queryName: 'match_documents'
   })
 
+// Retrieves values from Supabase
 const retriever = vectorStore.asRetriever(2)
 
 export {retriever}

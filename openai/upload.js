@@ -4,4 +4,5 @@ import OpenAI from 'openai';
 
 const openai = new OpenAI({apiKey: process.env.OPENAI_API_KEY});
 
+// Upload file to OpenAI
 await openai.files.create({ file: fs.createReadStream('./openai/data.jsonl'), purpose: 'fine-tune' });

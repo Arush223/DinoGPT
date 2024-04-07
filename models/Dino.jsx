@@ -10,7 +10,6 @@ Title: Arlo - The Good Dinosaur
 
 import React from 'react' 
 import { useGLTF } from '@react-three/drei'
-
 const Dino = (props) => {
   const { nodes, materials } = useGLTF('../dino.glb') 
   return (

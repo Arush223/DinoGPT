@@ -40,7 +40,7 @@ standalone question:`;
 
   const answerTemplate = `Use provided context if it is relevant.
 
-If the context is irrelevant, make a guess based on what you know.
+If the context is irrelevant, ignore it.
 
 If this is not possible, state that you do not know.
 

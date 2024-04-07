@@ -4,9 +4,7 @@ import Image from 'next/image';
 import { Canvas } from '@react-three/fiber';
 import Loader from './Loader';
 import Dino from '../models/Dino';
-
-// Global variable to store input text
-let globalInputText = '';
+import { getResponse } from './actions';
 
 const Page = () => {
   const [scrollPosition, setScrollPosition] = useState(0);
@@ -29,9 +27,10 @@ const Page = () => {
     setInputText(e.target.value);
   };
 
-  const handleSendButtonClick = () => {
-    globalInputText = inputText; // Store input text in global variable
-    setOutputText(inputText); // Update output text
+  const handleSendButtonClick = async () => {
+    setOutputText('loading...')
+    const outputText = await getResponse(inputText); // Fetch prompt response
+    setOutputText(outputText); // Update output text
     setInputText(''); // Clear input text
   };
 

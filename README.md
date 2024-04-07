@@ -2,8 +2,8 @@
 </head>
 <body>
   <header>
-    <h1>DS3 Hackathon Project: DinoGPT</h1>
-    <h2>Team LiquidDeath: Aarush, Aditya, Ganesh, Ritvik</h2>
+    <h1>DS3 Hackathon Project: DinoGPT :t-rex:</h1>
+    <h2>Team LiquidDeath: Aarush, Aditya, Ganesh, Ritvik </h2>
   </header>
   <main>
     <h3>Description</h3>

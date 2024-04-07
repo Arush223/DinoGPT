@@ -20,7 +20,7 @@
     </p>
     <h3>How we built it</h3>
     <p>
-      We built DinoGPT using React for the frontend, integrating with OpenAI's GPT-3 model for natural language processing. The 3D animations were created with @react-three/fiber, providing smooth and interactive visuals.
+      We built DinoGPT using Next.js for the frontend, integrating with OpenAI's GPT-3 model for natural language processing. The 3D animations were created with @react-three/fiber, providing smooth and interactive visuals.
     </p>
     <h3>Screenshots</h3>
     <div class="screenshot">

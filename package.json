@@ -2,6 +2,7 @@
   "name": "dinogpt",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -9,10 +10,15 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@react-three/drei": "^9.105.1",
-    "next": "^14.1.4",
+    "@langchain/community": "^0.0.44",
+    "@langchain/openai": "^0.0.26",
+    "@supabase/supabase-js": "^2.42.0",
+    "dotenv": "^16.4.5",
+    "fs": "^0.0.1-security",
+    "next": "14.1.4",
     "react": "^18",
-    "react-dom": "^18",
+    "react-dom": "^18"
+    "@react-three/drei": "^9.105.1",
     "react-spring": "^9.7.3",
     "react-three-fiber": "^6.0.13",
     "three": "^0.163.0"
